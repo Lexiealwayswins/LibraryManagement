@@ -1,0 +1,28 @@
+@model IEnumerable<LibraryManagement.ViewModels.BookViewModel>
+
+<h2>Books</h2>
+<a asp-action="Create" class="btn btn-primary">Add New Book</a>
+<table class="table table-bordered table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Library Branch</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.AuthorName</td>
+                <td>@book.BranchName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@book.BookId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

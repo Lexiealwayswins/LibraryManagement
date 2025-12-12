@@ -1,0 +1,29 @@
+﻿@page
+@model LibraryManagement.Areas.Identity.Pages.Account.LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="library-card">
+                <h2 class="text-center text-library mb-4"><i class="fas fa-sign-out-alt"></i> @ViewData["Title"]</h2>
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" class="text-center">
+                        <p class="text-library">Are you sure you want to log out?</p>
+                        <button type="submit" class="library-btn w-100">Click here to Logout</button>
+                    </form>
+                }
+                else
+                {
+                    <div class="alert alert-success text-center" role="alert">
+                        <p class="mb-0"><i class="fas fa-check-circle"></i> You have successfully logged out of the application.</p>
+                        <a href="/" class="btn library-btn mt-3">Return to Home</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

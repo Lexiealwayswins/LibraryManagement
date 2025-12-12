@@ -1,0 +1,30 @@
+@model IEnumerable<LibraryManagement.ViewModels.CustomerViewModel>
+
+<h2>Customers</h2>
+<a asp-action="Create" class="btn btn-primary">Create New Customer</a>
+<table class="table table-bordered table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Library Branch</th>
+            <th>Borrowed Books</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.CustomerName</td>
+                <td>@customer.BranchName</td>
+                <td>@(string.IsNullOrEmpty(customer.BorrowedBooksDisplay) ? "None" : customer.BorrowedBooksDisplay)</td>
+                <td>@customer.CreatedAt.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@customer.CustomerId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@customer.CustomerId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+@model IEnumerable<LibraryManagement.ViewModels.LibraryBranchViewModel>
+
+<h2>Library Branches</h2>
+<a asp-action="Create" class="btn btn-primary">Add New Branch</a>
+<table class="table table-bordered table-striped mt-3">
+    <thead>
+        <tr>
+            <th>Library Branch Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var branch in Model)
+        {
+            <tr>
+                <td>@branch.BranchName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@branch.LibraryBranchId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@branch.LibraryBranchId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2>Welcome to the Library Management System</h2>
+                </div>
+                <div class="card-body text-center">
+                    <p class="lead">
+                        Manage your library efficiently with our system. Explore books, authors, library branches, and customer records seamlessly.
+                    </p>
+                    <hr />
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a asp-controller="Book" asp-action="Details" class="btn btn-primary">View Books</a>
+                        <a asp-controller="Author" asp-action="Details" class="btn btn-secondary">View Authors</a>
+                        <a asp-controller="Customer" asp-action="Details" class="btn btn-info">View Customers</a>
+                        <a asp-controller="LibraryBranch" asp-action="Details" class="btn btn-success">View Branches</a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* @{
+    throw new Exception("This is a deliberate exception for testing purposes.");
+} *@
+
+@* @{
+    System.IO.File.OpenRead("non_existent_file.txt");
+} *@

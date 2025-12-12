@@ -1,0 +1,20 @@
+@model LibraryManagement.ViewModels.AuthorViewModel
+
+<h2>Edit Author</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="AuthorId" />
+    <div class="form-group">
+        <label asp-for="AuthorName" class="control-label">Author Name</label>
+        <input asp-for="AuthorName" class="form-control" />
+        <span asp-validation-for="AuthorName" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="Details" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

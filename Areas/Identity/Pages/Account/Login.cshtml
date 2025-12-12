@@ -1,0 +1,86 @@
+﻿@page
+@model LibraryManagement.Areas.Identity.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="library-card">
+                <h2 class="text-center text-library mb-4"><i class="fas fa-sign-in-alt"></i> @ViewData["Title"]</h2>
+                <form id="account" method="post" class="needs-validation" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" required />
+                        <label asp-for="Input.Email" class="form-label">Email</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" required />
+                        <label asp-for="Input.Password" class="form-label">Password</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label class="form-check-label" asp-for="Input.RememberMe">
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                    <button type="submit" class="library-btn w-100 mb-3">Log in</button>
+                    <div class="text-center">
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-decoration-none text-library">Register as a new user</a>
+                    </div>
+                </form>
+                <hr class="my-4" />
+                <h4 class="text-center text-library">Or log in with</h4>
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    <div class="text-center">
+                        @if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <div class="alert alert-custom" role="alert">
+                                <p>No external authentication services are configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a> for setup instructions.</p>
+                            </div>
+                        }
+                        else
+                        { 
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <div>
+                                    <p>
+                                        @foreach (var provider in Model.ExternalLogins!)
+                                        {
+                                            <button type="submit" class="btn @(provider.Name == "Google" ? "btn-danger" : "btn-primary") social-btn" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                                                <i class="fab @(provider.Name == "Google" ? "fa-google" : "fa-microsoft")"></i> @provider.DisplayName
+                                            </button>
+                                        }
+                                    </p>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+}
+

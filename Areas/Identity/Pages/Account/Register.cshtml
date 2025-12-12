@@ -1,0 +1,74 @@
+﻿@page
+@model LibraryManagement.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="library-card">
+                <h2 class="text-center text-library mb-4"><i class="fas fa-user-plus"></i> @ViewData["Title"]</h2>
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="needs-validation" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" required />
+                        <label asp-for="Input.Email">Email</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" required />
+                        <label asp-for="Input.Password">Password</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" required />
+                        <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <button id="registerSubmit" type="submit" class="library-btn w-100 mb-3">Register</button>
+                </form>
+                <hr class="my-4" />
+                <h4 class="text-center text-library">Or register with</h4>
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    <div class="text-center">
+                        @if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <div class="alert alert-custom" role="alert">
+                                <p>No external authentication services are configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a> for setup instructions.</p>
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var provider in Model.ExternalLogins!)
+                            {
+                                <button type="submit" class="btn @(provider.Name == "Google" ? "btn-danger" : "btn-primary") social-btn" name="provider" value="@provider.Name" title="Register using your @provider.DisplayName account">
+                                    <i class="fab @(provider.Name == "Google" ? "fa-google" : "fa-microsoft")"></i> @provider.DisplayName
+                                </button>
+                            }
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+}
