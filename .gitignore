@@ -1,8 +1,8 @@
 appsettings.json
 appsettings.*.json
-libary.db
-libary.db-shm
-libary.db-wal
+library.db
+library.db-shm
+library.db-wal
 Migrations/
 Backup/
 
